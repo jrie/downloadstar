@@ -1,0 +1,86 @@
+<!doctype html>
+<html ng-app="dsPopupApp" ng-strict-di>
+  <head>
+    <meta charset="utf-8">
+    <title>Download Star Options</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="options.css">
+  </head>
+
+  <body ng-controller="OptionsCtrl as vm">
+    <div class="container">
+      <h1 i18n="'optionsHeader'"></h1>
+
+      <form id="options-form">
+        <!-- watch controls -->
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="watchControls"
+                   ng-model="vm.settings.watchControls">
+            <label class="form-check-label" for="watchControls"
+                   i18n="'watchControls'"></label>
+          </div>
+          <small class="form-text text-muted"
+                 i18n="'watchControlsHelp'"></small>
+        </div>
+
+        <!-- max concurrent downloads -->
+        <div class="form-group">
+          <label i18n="'maxConcurrentDownloads'"></label>
+          <input class="form-control" type="number"
+                 ng-model="vm.settings.maxConcurrentDownloads"
+                 min="1" step="1" max="10" value="10"></input>
+          <small class="form-text text-muted"
+                 i18n="'maxConcurrentDownloadsHelp'"></small>
+        </div>
+
+        <!-- keep download history -->
+        <div class="form-group">
+          <label i18n="'keepHistory'"></label>
+          <select class="form-control"
+                  ng-model="vm.settings.keepHistory">
+            <option value="always"
+                    i18n="'keepHistoryAlways'"></option>
+            <option value="never"
+                    i18n="'keepHistoryNever'"></option>
+          </select>
+          <small class="form-text text-muted"
+                 i18n="'keepHistoryHelp'"></small>
+        </div>
+
+        <!-- keep download history -->
+        <div class="form-group">
+          <label i18n="'maxHistory'"></label>
+          <input class="form-control" type="number"
+                 ng-model="vm.settings.maxHistory"
+                 ng-disabled="vm.settings.keepHistory === 'never'"
+                 min="1" step="1" max="10000" value="1000"></input>
+          <small class="form-text text-muted"
+                 i18n="'maxHistoryHelp'"></small>
+        </div>
+
+        <!-- optional permissions -->
+        <div class="form-group">
+          <label i18n="'optionalPermissions'"></label>
+          <div>
+            <div class="btn-group-vertical">
+              <button class="btn btn-secondary" type="button"
+                      ng-click="vm.grantAllUrlsPermission()"
+                      ng-disabled="vm.hasAllUrlsPermission()"
+                      i18n="'grantAllUrlsPermission'"></button><br/>
+              <button class="btn btn-secondary" type="button"
+                      ng-click="vm.removeAllPermissions()"
+                      i18n="'removePermissions'"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Library components -->
+    <script src="../common/lib/angular.min.js"></script>
+    <script src="../common/ds-i18n.js"></script>
+    <script src="options.js"></script>
+
+  </body>
+</html>
